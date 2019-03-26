@@ -6,8 +6,8 @@ This problem provides practice at:
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Jairyq Underwood.
+"""  # Done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ###############################################################################
 # Students:
@@ -39,12 +39,11 @@ def main():
     ###########################################################################
     # UN-comment tests as you work the problems.
     ###########################################################################
-
-    # run_test_init()
-    # run_test_append_string()
-    # run_test_double()
-    # run_test_shrink()
-    # run_test_double_then_shrink()
+    run_test_init()
+    run_test_append_string()
+    run_test_double()
+    run_test_shrink()
+    run_test_double_then_shrink()
     # run_test_reset()
     # run_test_steal()
     # run_test_get_history()
@@ -94,8 +93,14 @@ class Box(object):
           :type contents: str
           :type volume: int
         """
+        self.contents = contents
+        self.volume = volume
+        self.length = len(contents)
+        if self.length > self.volume:
+            self.contents = ''
+
         # ---------------------------------------------------------------------
-        # TODO: 2. Implement and test this function.
+        # Done 2. Implement and test this function.
         #     See the testing code (below) for more examples.
         # ---------------------------------------------------------------------
         # ---------------------------------------------------------------------
@@ -135,8 +140,19 @@ class Box(object):
         Type hints:
           :type additional_contents: str
         """
+        new_string = self.contents + additional_contents
+        s = ''
+        a = ''
+        for k in range(len(new_string)):
+            if k < self.volume:
+                a = a + new_string[k]
+            else:
+                s = s + new_string[k]
+        self.contents = a
+        return s
+
         # ---------------------------------------------------------------------
-        # TODO: 3. Implement and test this function.
+        # Done: 3. Implement and test this function.
         #     See the testing code (below) for more examples.
         # ---------------------------------------------------------------------
         # ---------------------------------------------------------------------
@@ -192,8 +208,11 @@ class Box(object):
           #   s is 'Robot Fun'   [this is the part of the doubled
           #                       contents that did NOT fit]
         """
+        s = self.append_string(self.contents)
+        return s
+
         # ---------------------------------------------------------------------
-        # TODO: 4. Implement and test this function.
+        # Done: 4. Implement and test this function.
         #     The testing code is already written for you (above).
         # ---------------------------------------------------------------------
         # ---------------------------------------------------------------------
@@ -241,8 +260,19 @@ class Box(object):
         Type hints:
           :type new_volume: int
         """
+        a = ''
+        s = ''
+        for k in range(len(self.contents)):
+            if k < new_volume:
+                a = a + self.contents[k]
+            else:
+                s = s + self.contents[k]
+        self.volume = new_volume
+        self.contents = a
+        return s
+
         # ---------------------------------------------------------------------
-        # TODO: 5. Implement and test this function.
+        # Done: 5. Implement and test this function.
         #     The testing code is already written for you (above).
         # ---------------------------------------------------------------------
         # ---------------------------------------------------------------------
@@ -297,6 +327,18 @@ class Box(object):
         Type hints:
           :type new_volume: int
         """
+        self.volume = new_volume
+        total = 0
+        for k in range(new_volume):
+            if new_volume > 0:
+                self.double()
+                self.shrink(new_volume)
+                total += 1
+            else:
+                total = 0
+        return total
+
+
         # ---------------------------------------------------------------------
         # TODO: 6. Implement and test this function.
         #     The testing code is already written for you (above).
